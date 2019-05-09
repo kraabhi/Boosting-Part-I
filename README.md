@@ -55,12 +55,12 @@ So, we are basically updating the predictions such that predicted values are clo
 
 Fit Gradient Boosting model :
 
-Predictions=ypi
-Loss=L(yi,ypi)
-Loss=MSE=∑(yi−ypi)2
-ypi=ypi+α∗δL(yi,ypi)/δypi
-ypi=ypi+α∗δ∑(yi−ypi)2/δypi
-ypi=ypi−α∗2∗∑(yi−ypi)
+# Predictions=ypi
+# Loss=L(yi,ypi)
+# Loss=MSE=∑(yi−ypi)2
+# ypi=ypi+α∗δL(yi,ypi)/δypi
+# ypi=ypi+α∗δ∑(yi−ypi)2/δypi
+# ypi=ypi−α∗2∗∑(yi−ypi)
 
 So when are fitting new model on residuals we are actually adjusting our predictions using the fit on residuals.
 
@@ -71,3 +71,35 @@ So when are fitting new model on residuals we are actually adjusting our predict
 3. Now fit the new model on e1 with same inputs and again calculate predictions as e1_predicted
 4. Add the predictions to previous predictions y_predicted2 = y_predicted1 + e1_predicted
 5. Fit another model on the residuals that left e2 = y - y_predicted2 and repeat the process untill the sum of residuals become constant.
+
+# 3. XG Boost Algorithm :
+
+XGBoost is an ensemble additive model that is composed of several base learners.It is quite similar to GBM with some tricks to make is more successful machine learning algorithm.In case of GBM we use one base learner and fit a base learner to the negative gradient of loss function with respect to previous iteration’s value. In XGBoost, we try to explore several base learners and pick one that minimizes the loss.Now with several base learners we face two problems.
+1. We need to explore different base learners
+2. We need to calculate the value of the loss function for all those base learners.
+
+XGBoost uses Taylor series to approximate the value of the loss function for a base learner.It takes values upto second order derivative only and gives a good approximation of loss value.
+
+Loss =  ∑(GiYi + HiYi) + L1             Gi is first order derivative of loss function                     
+                                        Hi is second order derivative of loss function
+                                        ∑ it implies summation for all values of data
+                                        L1 is Taylor approximation of higher terms
+                                        Yi is any base learner
+So we can calculate ‘Gi’ and ‘Hi’ before starting exploring different base learners, as it will be just a matter of multiplications thereafter.
+
+Now that we know how to calculate loss we need to explore all base learners. For that We select any base learner with k leafs and Ij represent number of instances in node j. and wj represent prediction of node j.When we plug in the values of the node ,we can take the derivative of loss function with respect to each leaf node’s weight wj, to get an optimal weight.
+
+Substituting the optimal weights back in loss function above we get optimal loss for a fixed tree structure. There will be several hundreds of possible trees.Instead of exploring all possible tree structures, XGBoost greedily builds a tree. The split that results in maximum loss reduction is chosen.Suppose the tree starts at Node ‘H’. Based on some split criteria, the node is divided into left and right branches. So some instances fall in left node and other instances fall in right leaf node. Now, we can calculate the reduction in loss and pick the split that causes best reduction in loss.
+
+# Important points to keep in mind :
+1. It uses second order derivative of loss function compared to first order derivative in GBM and so gives more like direction of gradient and thus help in reducing loss.
+2. It has advanced regularization (L1 & L2) parameters, which improves model generalization and thus prevents overfitting.
+3. It can handle weighted data.
+4. Data is sorted and stored in in-memory units called blocks. Unlike other algorithms, this enables the data layout to be reused by subsequent iterations, instead of computing it again. This feature also serves useful for steps like split finding and column sub-sampling
+
+I searched a lot for the mathematics behind XGBoost and I found only this as the best ever resource to understand the complete maths behind it.
+I suggest you to go through the following link.
+
+https://www.kdnuggets.com/2018/08/unveiling-mathematics-behind-xgboost.html
+
+
