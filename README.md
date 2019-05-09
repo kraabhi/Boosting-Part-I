@@ -42,7 +42,8 @@ We can see error rate is more then 50 % so we are getting -ve weight for that cl
 
 Now we will update the weights of samples such that missclassified samples get more weight and will be given more weightage further.
 
-# Suggest you to refer : https://towardsdatascience.com/adaboost-for-dummies-breaking-down-the-math-and-its-equations-into-simple-terms-87f439757dcf for deeper mathematics behind adaboost.
+### Suggest you to refer : 
+https://towardsdatascience.com/adaboost-for-dummies-breaking-down-the-math-and-its-equations-into-simple-terms-87f439757dcf for deeper mathematics behind adaboost.
 
 ## 2. Gradient Boosting Algorithm :
 
@@ -55,12 +56,12 @@ So, we are basically updating the predictions such that predicted values are clo
 
 Fit Gradient Boosting model :
 
-### Predictions=ypi
-### Loss=L(yi,ypi)
-### Loss=MSE=∑(yi−ypi)2
-### ypi=ypi+α∗δL(yi,ypi)/δypi
-### ypi=ypi+α∗δ∑(yi−ypi)2/δypi
-### ypi=ypi−α∗2∗∑(yi−ypi)
+#### Predictions=ypi
+#### Loss=L(yi,ypi)
+#### Loss=MSE=∑(yi−ypi)2
+#### ypi=ypi+α∗δL(yi,ypi)/δypi
+#### ypi=ypi+α∗δ∑(yi−ypi)2/δypi
+#### ypi=ypi−α∗2∗∑(yi−ypi)
 
 So when are fitting new model on residuals we are actually adjusting our predictions using the fit on residuals.
 
@@ -80,12 +81,12 @@ XGBoost is an ensemble additive model that is composed of several base learners.
 
 XGBoost uses Taylor series to approximate the value of the loss function for a base learner.It takes values upto second order derivative only and gives a good approximation of loss value.
 
-### Loss =  ∑(GiYi + HiYi) + L1           
-###                                       Gi is first order derivative of loss function                     
-###                                       Hi is second order derivative of loss function
-###                                       ∑ it implies summation for all values of data
-###                                       L1 is Taylor approximation of higher terms
-###                                       Yi is any base learner
+####  Loss =  ∑(GiYi + HiYi) + L1           
+####                                       Gi is first order derivative of loss function                     
+####                                       Hi is second order derivative of loss function
+####                                       ∑ it implies summation for all values of data
+####                                       L1 is Taylor approximation of higher terms
+####                                       Yi is any base learner
 
 So we can calculate ‘Gi’ and ‘Hi’ before starting exploring different base learners, as it will be just a matter of multiplications thereafter.
 
