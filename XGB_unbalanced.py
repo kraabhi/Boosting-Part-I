@@ -9,9 +9,9 @@ import matplotlib.pyplot as plt
 from sklearn.model_selection import cross_val_score
 from sklearn.model_selection import train_test_split
 
-# Import any train and test data
-train = pd.read_csv("C:/Users/admin/Desktop/practice_problems/loan_prediction_upload/train_cax_loan_prediction.csv"")
-test = pd.read_csv("C:/Users/admin/Desktop/practice_problems/loan_prediction_upload/test_cax_loan_prediction.csv")
+# Import  train and test data from the repository.
+train = pd.read_csv("train data")
+test = pd.read_csv("test data")
 
 # We ave train data and test data with target varibale as "RESULT". We make the target variable to 0/1
 
