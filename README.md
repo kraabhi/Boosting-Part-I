@@ -80,11 +80,12 @@ XGBoost is an ensemble additive model that is composed of several base learners.
 
 XGBoost uses Taylor series to approximate the value of the loss function for a base learner.It takes values upto second order derivative only and gives a good approximation of loss value.
 
-Loss =  ∑(GiYi + HiYi) + L1             Gi is first order derivative of loss function                     
-                                        Hi is second order derivative of loss function
-                                        ∑ it implies summation for all values of data
-                                        L1 is Taylor approximation of higher terms
-                                        Yi is any base learner
+# Loss =  ∑(GiYi + HiYi) + L1           Gi is first order derivative of loss function                     
+#                                       Hi is second order derivative of loss function
+#                                       ∑ it implies summation for all values of data
+#                                       L1 is Taylor approximation of higher terms
+#                                       Yi is any base learner
+
 So we can calculate ‘Gi’ and ‘Hi’ before starting exploring different base learners, as it will be just a matter of multiplications thereafter.
 
 Now that we know how to calculate loss we need to explore all base learners. For that We select any base learner with k leafs and Ij represent number of instances in node j. and wj represent prediction of node j.When we plug in the values of the node ,we can take the derivative of loss function with respect to each leaf node’s weight wj, to get an optimal weight.
