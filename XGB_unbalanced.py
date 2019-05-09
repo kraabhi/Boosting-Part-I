@@ -1,4 +1,4 @@
-
+# Balancing the unbalanced data and applying tunned XGB on it
 import pandas as pd
 import numpy as np
 import xgboost as xgb
@@ -8,6 +8,8 @@ import matplotlib.pyplot as plt
 %matplotlib inline
 from sklearn.model_selection import cross_val_score
 from sklearn.model_selection import train_test_split
+
+# Import any train and test data
 train = pd.read_csv(".csv")
 test = pd.read_csv(".csv")
 
@@ -18,13 +20,14 @@ train['RESULT'].replace('NOT FUNDED', 0, inplace = True)
 test['RESULT'].replace('NOT FUNDED', 0, inplace = True)
 test['RESULT'].replace('FUNDED', 1 , inplace = True)
 
-# After Preprocessing we perform over sampling to increse the minorities
+# After Preprocessing we perform over sampling to increase the minorities
 
 from sklearn.utils import resample
 
 # separate minority and majority classes
 NOT_FUNDED = train1[train1.RESULT==0]
 FUNDED = train1[train1.RESULT==1]
+
 # upsample minority
 NOT_FUNDED_upsampled = resample(NOT_FUNDED,
                           replace=True, # sample with replacement
