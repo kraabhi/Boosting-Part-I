@@ -16,13 +16,13 @@ In case of classification task a weak learner has an error rate that is slightly
 
 # Different Boosting algorithms
 
-# 1. AdaBoost(Adaptive Boosting):
+## 1. AdaBoost(Adaptive Boosting):
 
 The weak learners in AdaBoost are decision trees with a single split, called decision stumps.It works by putting more weight on difficult to classify instances and less on those already handled well and can be used for both classification and regression problem.
 
 It fits a sequence of weak learners on different weighted training data. It starts by predicting original data set and gives equal weight to each observation. If prediction is incorrect using the first learner, then it gives higher weight to observation which have been predicted incorrectly. Being an iterative process, it continues to add learner(s) until a limit is reached in the number of models or accuracy.
 
-# In simple terms:
+### In simple terms:
 After training a classifier at any level, ada-boost assigns weight to each training item. Misclassified item is assigned higher weight so that it appears in the training subset of next classifier with higher probability. After each classifier is trained, the weight is assigned to the classifier as well based on accuracy.So the idea is to set weights to both classifiers and data points (samples) in a way that forces classifiers to concentrate on observations that are difficult to correctly classify. This process is done sequentially in that the two weights are adjusted at each step as iterations of the algorithm proceed. This is why Adaboost is referred to as a sequential ensemble method 
 The more accurate classifier is assigned higher weight so that it will have more impact in the final outcome. A classifier with 50% accuracy is given a weight of zero, and a classifier with less than 50% accuracy is given negative weight.
 
@@ -44,7 +44,7 @@ Now we will update the weights of samples such that missclassified samples get m
 
 # Suggest you to refer : https://towardsdatascience.com/adaboost-for-dummies-breaking-down-the-math-and-its-equations-into-simple-terms-87f439757dcf for deeper mathematics behind adaboost.
 
-# 2. Gradient Boosting Algorithm :
+## 2. Gradient Boosting Algorithm :
 
 The main difference between adaboost and GBM lies in the fact that how it identify the shortcomings of weak learners (eg. decision trees). While the AdaBoost model identifies the shortcomings by using high weight data points, gradient boosting performs the same by using gradients in the loss function.
 
@@ -55,16 +55,16 @@ So, we are basically updating the predictions such that predicted values are clo
 
 Fit Gradient Boosting model :
 
-# Predictions=ypi
-# Loss=L(yi,ypi)
-# Loss=MSE=∑(yi−ypi)2
-# ypi=ypi+α∗δL(yi,ypi)/δypi
-# ypi=ypi+α∗δ∑(yi−ypi)2/δypi
-# ypi=ypi−α∗2∗∑(yi−ypi)
+### Predictions=ypi
+### Loss=L(yi,ypi)
+### Loss=MSE=∑(yi−ypi)2
+### ypi=ypi+α∗δL(yi,ypi)/δypi
+### ypi=ypi+α∗δ∑(yi−ypi)2/δypi
+### ypi=ypi−α∗2∗∑(yi−ypi)
 
 So when are fitting new model on residuals we are actually adjusting our predictions using the fit on residuals.
 
-# Steps:
+### Steps:
 
 1. Fit the base model and find predictions y_predicted1 
 2. Find the difference between actual and predicted y -y_predicted1  names it as e1, so e1 = y-y_predicted1 
@@ -72,7 +72,7 @@ So when are fitting new model on residuals we are actually adjusting our predict
 4. Add the predictions to previous predictions y_predicted2 = y_predicted1 + e1_predicted
 5. Fit another model on the residuals that left e2 = y - y_predicted2 and repeat the process untill the sum of residuals become constant.
 
-# 3. XG Boost Algorithm :
+## 3. XG Boost Algorithm :
 
 XGBoost is an ensemble additive model that is composed of several base learners.It is quite similar to GBM with some tricks to make is more successful machine learning algorithm.In case of GBM we use one base learner and fit a base learner to the negative gradient of loss function with respect to previous iteration’s value. In XGBoost, we try to explore several base learners and pick one that minimizes the loss.Now with several base learners we face two problems.
 1. We need to explore different base learners
@@ -80,11 +80,12 @@ XGBoost is an ensemble additive model that is composed of several base learners.
 
 XGBoost uses Taylor series to approximate the value of the loss function for a base learner.It takes values upto second order derivative only and gives a good approximation of loss value.
 
-# Loss =  ∑(GiYi + HiYi) + L1           Gi is first order derivative of loss function                     
-#                                       Hi is second order derivative of loss function
-#                                       ∑ it implies summation for all values of data
-#                                       L1 is Taylor approximation of higher terms
-#                                       Yi is any base learner
+### Loss =  ∑(GiYi + HiYi) + L1           
+###                                       Gi is first order derivative of loss function                     
+###                                       Hi is second order derivative of loss function
+###                                       ∑ it implies summation for all values of data
+###                                       L1 is Taylor approximation of higher terms
+###                                       Yi is any base learner
 
 So we can calculate ‘Gi’ and ‘Hi’ before starting exploring different base learners, as it will be just a matter of multiplications thereafter.
 
@@ -92,7 +93,7 @@ Now that we know how to calculate loss we need to explore all base learners. For
 
 Substituting the optimal weights back in loss function above we get optimal loss for a fixed tree structure. There will be several hundreds of possible trees.Instead of exploring all possible tree structures, XGBoost greedily builds a tree. The split that results in maximum loss reduction is chosen.Suppose the tree starts at Node ‘H’. Based on some split criteria, the node is divided into left and right branches. So some instances fall in left node and other instances fall in right leaf node. Now, we can calculate the reduction in loss and pick the split that causes best reduction in loss.
 
-# Important points to keep in mind :
+### Important points to keep in mind :
 1. It uses second order derivative of loss function compared to first order derivative in GBM and so gives more like direction of gradient and thus help in reducing loss.
 2. It has advanced regularization (L1 & L2) parameters, which improves model generalization and thus prevents overfitting.
 3. It can handle weighted data.
