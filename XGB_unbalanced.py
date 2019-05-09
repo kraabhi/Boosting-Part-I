@@ -10,23 +10,23 @@ from sklearn.model_selection import cross_val_score
 from sklearn.model_selection import train_test_split
 
 # Import any train and test data
-train = pd.read_csv(".csv")
-test = pd.read_csv(".csv")
+train = pd.read_csv("C:/Users/admin/Desktop/practice_problems/loan_prediction_upload/train_cax_loan_prediction.csv"")
+test = pd.read_csv("C:/Users/admin/Desktop/practice_problems/loan_prediction_upload/test_cax_loan_prediction.csv")
 
 # We ave train data and test data with target varibale as "RESULT". We make the target variable to 0/1
 
-train['RESULT'].replace( 'FUNDED', 1, inplace = True)
-train['RESULT'].replace('NOT FUNDED', 0, inplace = True)
-test['RESULT'].replace('NOT FUNDED', 0, inplace = True)
-test['RESULT'].replace('FUNDED', 1 , inplace = True)
+train['Loan_Status'].replace( 'Y', 1, inplace = True)
+train['Loan_Status'].replace('N', 0, inplace = True)
+test['Loan_Status'].replace('Y', 0, inplace = True)
+test['Loan_Status'].replace('Y', 1 , inplace = True)
 
 # After Preprocessing we perform over sampling to increase the minorities
 
 from sklearn.utils import resample
 
 # separate minority and majority classes
-NOT_FUNDED = train1[train1.RESULT==0]
-FUNDED = train1[train1.RESULT==1]
+NOT_FUNDED = train[train.Loan_Status==0]
+FUNDED = train[train.Loan_Status==1]
 
 # upsample minority
 NOT_FUNDED_upsampled = resample(NOT_FUNDED,
@@ -37,14 +37,14 @@ NOT_FUNDED_upsampled = resample(NOT_FUNDED,
 # combine majority and upsampled minority
 upsampled = pd.concat([FUNDED, NOT_FUNDED_upsampled])
 # check new class counts
-upsampled.RESULT.value_counts()
+upsampled.Loan_Status.value_counts()
 
 #seperating target varable from train and test data
 
-y = upsampled.RESULT
-X = upsampled.drop('RESULT', axis=1)
-X_test_final = test1.drop('RESULT', axis=1)
-y_test_final = test1.RESULT
+y = upsampled.Loan_Status
+X = upsampled.drop('Loan_Status', axis=1)
+X_test_final = test.drop('Loan_Status', axis=1)
+y_test_final = test.Loan_Status
 
 # one hot encoding to convert categorical data to numeric data
 
