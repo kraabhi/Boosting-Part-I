@@ -2,15 +2,15 @@
 
 # Ensemble: 
 
-During prediction of target variable by any machine learning method, we get different output in comparision to actual.The main cause of difference is noice, variance and bias.Ensemble helps to reduce these factors except for the noice which is not under our control.Ensemble is collection of different models whose individual results are aggregated to get final result.There are two types of ensemble methods.
+During prediction of target variable by any machine learning method, we get different output in comparision to actual.The main cause of difference is noise, variance and bias.Ensemble helps to reduce these factors except for the noise which is not under our control.Ensemble is a collection of different models whose individual results are aggregated to get final result.There are two types of ensemble methods.
 
 1. Bagging :
-We randomly takes various samples from the train data (with replacement)and fit different models to different samples and after getting their individual predictions we combine their results.Samples are taken in such a way that each model differs from other.
+We randomly take various samples from the train data (with replacement)and fit different models to different samples and after getting their individual predictions we combine their results.Samples are taken in such a way that each model differs from other.
 Because this technique takes many uncorrelated learners to make a final model, it reduces error by reducing variance. Example of bagging ensemble is Random Forest.
 
 2. Boosting :
-Here the predictors are not made independently, but sequentially.
-This technique employs the logic in which the subsequent predictors learn from the mistakes of the previous predictors.The predictors can be chosen from a range of models like decision trees, regressors, classifiers etc. Because new predictors are learning from mistakes committed by previous predictors, it takes less time/iterations to reach close to actual predictions. But we have to choose the stopping criteria carefully or it could lead to overfitting on training data. Gradient Boosting is an example of boosting algorithm.
+Here the weak learners are not made independently, but sequentially.
+This technique employs the logic in which the subsequent predictors learn from the mistakes of the previous predictors.The weak learners can be chosen from a range of models like decision trees, regressors, classifiers etc. Because new predictors are learning from mistakes committed by previous predictors, it takes less time/iterations to reach close to actual predictions. But we have to choose the stopping criteria carefully or it could lead to overfitting on training data. Gradient Boosting is an example of boosting algorithm.
 
 In case of classification task a weak learner has an error rate that is slightly lesser than 0.5 in classifying the object and a strong learner has an error rate closer to 0.To convert a weak learner into strong learner, we take a family of weak learners, combine their results for example by voting. This turns this family of weak learners into strong learners.But the important thing is that the weak learners must not be correlated.
 
